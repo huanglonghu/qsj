@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="330pt"
+            android:background="@drawable/bg_top">
+
+            <include
+                layout="@layout/toolbar3"
+                bind:title="@{@string/contacts}" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30pt"
+            android:layout_marginTop="254pt"
+            android:layout_marginRight="30pt"
+            android:background="@drawable/shape1">
+
+
+            <ListView
+                android:id="@+id/lv_contacts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20pt"
+                android:scrollbars="none" />
+
+
+            <com.example.qsl.customview.LetterView
+                android:id="@+id/letter_view"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</layout>

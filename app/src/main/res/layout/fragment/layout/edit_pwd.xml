@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.example.qsl.presenter.Presenter" />
+
+        <variable
+            name="changePsw"
+            type="com.example.qsl.bean.ChangePsw" />
+
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/bj">
+
+            <include
+                layout="@layout/toolbar3"
+                bind:presenter="@{presenter}"
+                bind:title="@{@string/editPsw}" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-70dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+
+            <LinearLayout
+                android:id="@+id/ll"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/shape13"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="40dp"
+                android:paddingRight="10dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="原密码"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
+                    <com.example.qsl.customview.MyEditText
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_et"
+                        android:hint="填写原密码"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="@={changePsw.oldPassword}"
+                        android:textColor="#000"
+                        android:textColorHint="@color/t3"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="新密码"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
+                    <com.example.qsl.customview.MyEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_et"
+                        android:hint="填写新密码"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="@={changePsw.password}"
+                        android:textColor="#000"
+                        android:textColorHint="@color/t3"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="确认密码"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
+                    <com.example.qsl.customview.MyEditText
+                        android:id="@+id/surePsw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_et"
+                        android:hint="再次确认填写"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="#000"
+                        android:textColorHint="@color/t3"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/head"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/complete"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/ll"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/shape5"
+                android:gravity="center"
+                android:text="完成"
+                android:textColor="#fff" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</layout>

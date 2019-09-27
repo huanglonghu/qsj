@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="msg"
+            type="cn.jpush.im.android.api.model.Message" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_chattime"
+            android:paddingLeft="12pt"
+            android:paddingTop="10pt"
+            android:paddingRight="12pt"
+            android:paddingBottom="10pt"
+            android:textSize="18pt"
+            android:textColor="#fff" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:layout_marginBottom="20pt"
+            android:gravity="center_vertical|right"
+            android:orientation="horizontal">
+
+
+            <com.example.qsl.customview.chat.ChatView xmlns:chat="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/chatMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="93pt"
+                android:layout_marginRight="18pt"
+                chat:arrow_direction="right"
+                chat:arrow_height="20pt"
+                chat:arrow_up_distance="10dp"
+                chat:arrow_width="10pt"
+                chat:conner_radius="6dp"
+                chat:fill_color="#FFFFFF"
+                chat:is_arrow_center="true"
+                chat:press_fill_color="@android:color/transparent"
+                chat:press_stroke_color="#50111111"
+                chat:stroke_color="#FFFFFF"
+                chat:stroke_width="1px">
+
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20pt"
+                    android:paddingTop="20pt"
+                    android:paddingLeft="20pt"
+                    android:paddingRight="30pt"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/t2"
+                    android:textSize="28pt" />
+
+            </com.example.qsl.customview.chat.ChatView>
+
+
+            <ImageView
+                android:id="@+id/ivHead"
+                android:layout_width="90pt"
+                android:layout_height="90pt" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</layout>
+

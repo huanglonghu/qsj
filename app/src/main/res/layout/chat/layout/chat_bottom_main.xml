@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/foot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:background="#f7f7f7"
+        android:divider="@drawable/divider2"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="30pt">
+
+
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20pt"
+                android:layout_marginRight="20pt"
+                android:layout_weight="1"
+                android:background="@drawable/shape4">
+
+                <EditText
+                    android:id="@+id/conversation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="对Ta发送消息"
+                    android:minHeight="80pt"
+                    android:paddingLeft="20pt"
+                    android:textSize="30pt" />
+
+
+
+            </FrameLayout>
+
+
+            <ImageView
+                android:id="@+id/emoji"
+                android:layout_width="49pt"
+                android:layout_height="49pt"
+                android:src="@drawable/emoji" />
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25pt">
+
+
+                <TextView
+                    android:id="@+id/send"
+                    android:layout_width="80pt"
+                    android:layout_height="60pt"
+                    android:background="@drawable/shape1"
+                    android:gravity="center"
+                    android:text="发送"
+                    android:textColor="#fff"
+                    android:textSize="25pt"
+                    android:visibility="gone" />
+
+
+                <ImageView
+                    android:id="@+id/add"
+                    android:layout_width="49pt"
+                    android:layout_height="49pt"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/add2" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/botoomLyoutContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="130pt">
+
+
+    <ImageView
+        android:layout_width="90pt"
+        android:layout_height="90pt"
+        android:layout_centerVertical="true" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20pt"
+        android:text="苏子言"
+        android:textColor="#000"
+        android:textSize="31pt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="30pt"
+        android:text="早上9:00"
+        android:textColor="#989898"
+        android:textSize="31pt" />
+
+
+</RelativeLayout>
+</layout>

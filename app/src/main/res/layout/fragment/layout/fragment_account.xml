@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.example.qsl.presenter.Presenter" />
+
+
+        <variable
+            name="fragment"
+            type="com.example.qsl.fragment.me.AccountMsg" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="user"
+            type="com.example.qsl.database.entity.UserBean" />
+
+        <variable
+            name="sex"
+            type="String" />
+
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="465pt"
+            android:background="@drawable/bj">
+
+            <include
+                layout="@layout/toolbar3"
+                bind:presenter="@{presenter}"
+                bind:title="@{@string/accountMsg}" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-185pt"
+            android:paddingLeft="30pt"
+            android:paddingRight="30pt">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="77pt"
+                android:background="@drawable/shape13"
+                android:orientation="vertical"
+                android:paddingLeft="20pt"
+                android:paddingTop="180pt"
+                android:paddingRight="20pt"
+                android:paddingBottom="72pt">
+
+                <RelativeLayout
+                    android:id="@+id/nickName"
+                    android:layout_width="match_parent"
+                    android:layout_height="110pt"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="昵称"
+                            android:textColor="@color/f2"
+                            android:textSize="26pt" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{user.userName}"
+                            android:textColor="@color/f2"
+                            android:textSize="26pt" />
+
+
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:layout_width="25pt"
+                        android:layout_height="25pt"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/back4" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/changePsw"
+                    android:layout_width="match_parent"
+                    android:layout_height="110pt">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="密码"
+                        android:textColor="@color/f2"
+                        android:textSize="26pt" />
+
+
+                    <ImageView
+                        android:layout_width="25pt"
+                        android:layout_height="25pt"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/back4" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="154pt"
+                    android:layout_height="154pt">
+
+                    <ImageView
+                        android:id="@+id/iv_head"
+                        android:layout_width="154pt"
+                        android:layout_height="154pt"
+                        android:background="@drawable/bg_head" />
+
+                    <ImageView
+                        android:layout_width="47pt"
+                        android:layout_height="47pt"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/camera" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25pt"
+                    android:text="更改头像"
+                    android:textColor="@color/t3"
+                    android:textSize="25pt" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</layout>

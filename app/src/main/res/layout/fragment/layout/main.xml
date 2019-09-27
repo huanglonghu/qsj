@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+        <variable
+            name="position"
+            type="int" />
+
+
+        <variable
+            name="titleArray"
+            type="String[]" />
+
+        <variable
+            name="fragment"
+            type="com.example.qsl.fragment.main.Main" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="newsCount"
+            type="int" />
+
+    </data>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.activity.MainActivity">
+
+
+        <com.example.qsl.customview.NoScrollViewPager
+            android:id="@+id/main_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+        <LinearLayout
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="98pt"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->fragment.togglePager(0)}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="39pt"
+                    android:layout_height="39pt"
+                    android:background="@{position==0?@drawable/chat2:@drawable/chat1}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="聊天"
+                    android:textColor="@{position==0?@color/navigation2:@color/navigation1}"
+                    android:textSize="25pt" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->fragment.togglePager(1)}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="39pt"
+                    android:layout_height="39pt"
+                    android:background="@{position==1?@drawable/contacts2:@drawable/contacts1}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="通讯录"
+                    android:textColor="@{position==1?@color/navigation2:@color/navigation1}"
+                    android:textSize="25pt" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->fragment.togglePager(2)}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="39pt"
+                    android:layout_height="39pt"
+                    android:src="@{position==2?@drawable/me2:@drawable/me1}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我"
+                    android:textColor="@{position==2?@color/navigation2:@color/navigation1}"
+                    android:textSize="25pt" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

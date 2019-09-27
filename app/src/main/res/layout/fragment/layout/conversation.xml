@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.example.qsl.presenter.Presenter" />
+
+
+        <variable
+            name="tip"
+            type="String" />
+
+        <variable
+            name="count"
+            type="int" />
+
+        <import type="android.view.View" />
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/head"
+            android:layout_width="match_parent"
+            android:layout_height="330pt"
+            android:background="@drawable/bg_top">
+
+            <include
+                layout="@layout/toolbar2"
+                bind:count="@{count}"
+                bind:presenter="@{presenter}"
+                bind:title="@{@string/converstaionRecord}" />
+
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                layout="@layout/empty_layout"
+                android:visibility="@{count==0?View.VISIBLE:View.GONE}"
+                bind:tip="@{tip}" />
+
+            <ListView
+                android:id="@+id/lv_conversation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30pt"
+                android:layout_marginTop="190pt"
+                android:layout_marginRight="30pt"
+                android:background="@drawable/shape3"
+                android:paddingLeft="35pt"
+                android:paddingRight="35pt"
+                android:visibility="@{count!=0?View.VISIBLE:View.GONE}" />
+
+        </FrameLayout>
+
+
+    </RelativeLayout>
+
+
+</layout>

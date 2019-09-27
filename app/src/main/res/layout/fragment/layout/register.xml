@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+
+        <variable
+            name="presenter"
+            type="com.example.qsl.presenter.Presenter" />
+
+
+        <import type="android.view.View" />
+
+
+        <variable
+            name="registerBody"
+            type="com.example.qsl.bean.RegisterBody" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="360pt"
+            android:background="@drawable/bj">
+
+            <include
+                android:id="@+id/login_toolbar"
+                layout="@layout/toolbar2"
+                bind:presenter="@{presenter}"
+                bind:title="@{@string/accountLogin}" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="690pt"
+            android:layout_marginLeft="30pt"
+            android:layout_marginTop="254pt"
+            android:layout_marginRight="30pt"
+            android:background="@drawable/shape13"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40pt"
+                android:text="手机快捷登录"
+                android:textColor="#000"
+                android:textSize="36pt" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90pt"
+                android:layout_marginTop="30pt"
+                android:background="@drawable/shape18"
+                android:gravity="center_vertical"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/name" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输真实姓名"
+                    android:text="@={registerBody.userName}"
+                    android:textColorHint="@color/t3"
+                    android:textSize="27pt" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90pt"
+                android:layout_marginTop="30pt"
+                android:background="@drawable/shape18"
+                android:gravity="center_vertical"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/nickname" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入昵称"
+                    android:text="@={registerBody.nickName}"
+                    android:textColorHint="@color/t3"
+                    android:textSize="27pt" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90pt"
+                android:layout_marginTop="30pt"
+                android:background="@drawable/shape18"
+                android:gravity="center_vertical"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@drawable/pwd" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请设置登录密码"
+                    android:inputType="number"
+                    android:text="@={registerBody.password}"
+                    android:textColorHint="@color/t3"
+                    android:textSize="27pt" />
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30pt"
+                android:background="@drawable/shape11"
+                android:text="登录"
+                android:textColor="#fff"
+                android:textSize="30pt" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</layout>

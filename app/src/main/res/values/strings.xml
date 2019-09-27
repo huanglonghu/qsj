@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">qsj</string>
+
+
+    <string name="me">我</string>
+
+    <string name="contacts">通讯录</string>
+
+    <string name="converstaionRecord">聊天记录</string>
+
+    <string name="accountLogin">账号登录</string>
+
+    <string name="accountMsg">个人信息</string>
+
+    <string name="editPsw">密码修改</string>
+
+    <string name="editNickName">昵称修改</string>
+
+
+</resources>

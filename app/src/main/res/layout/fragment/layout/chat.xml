@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="userType"
+            type="int" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/contentView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+            <ListView
+                android:id="@+id/lv_chat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f2f2f2"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="30pt"
+                android:paddingTop="90pt"
+                android:listSelector="@android:color/transparent"
+                android:paddingLeft="30pt"
+                android:paddingRight="30pt"
+                android:scrollbars="none"
+                android:transcriptMode="alwaysScroll" />
+
+            <RelativeLayout
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="90pt"
+                android:background="#fff"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="30pt"
+                android:paddingRight="30pt">
+
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="19pt"
+                    android:layout_height="35pt"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/back1" />
+
+                <TextView
+                    android:id="@+id/salePersonName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/t2"
+                    android:textSize="33pt" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/bottom_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</layout>

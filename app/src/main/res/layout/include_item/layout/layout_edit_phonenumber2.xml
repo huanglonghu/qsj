@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+
+        <variable
+            name="area"
+            type="int" />
+
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <com.example.qsl.customview.MyEditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="90pt"
+            android:background="@drawable/shape18"
+            android:hint="请输入新的手机号码"
+            android:inputType="phone"
+            android:paddingLeft="10dp"
+            android:textSize="31pt" />
+
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape1"
+            android:text="保存"
+            android:textColor="#fff" />
+
+
+    </LinearLayout>
+</layout>

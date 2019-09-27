@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+    <color name="navigation1">#838588</color>
+    <color name="navigation2">#018bee</color>
+
+
+    <color name="t2">#333333</color>
+    <color name="t1">#999999</color>
+    <color name="t3">#8b9fbb</color>
+
+    <color name="b1">#f8f9fe</color>
+    <color name="b2">#EBEBEB</color>
+    <color name="b3">#d9d9d9</color>
+
+    <color name="bg_indicator_point_normal">#D8D8D8</color>
+    <color name="bg_indicator_point_selected">#A6A6A6</color>
+    <color name="divider">#f8f8f8</color>
+
+    <color name="f2">#34495e</color>
+</resources>

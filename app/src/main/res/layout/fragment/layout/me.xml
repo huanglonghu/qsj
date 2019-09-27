@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+        <variable
+            name="presenter"
+            type="com.example.qsl.presenter.Presenter" />
+
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/b1">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="330pt"
+            android:background="@drawable/bg_top">
+
+            <include
+                layout="@layout/toolbar3"
+                bind:presenter="@{presenter}"
+                bind:title="@{@string/me}" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30pt"
+            android:layout_marginTop="254pt"
+            android:layout_marginRight="30pt"
+            android:background="@drawable/shape1"
+            android:divider="@drawable/divider1"
+            android:orientation="vertical"
+            android:paddingLeft="20pt"
+            android:paddingTop="140pt"
+            android:paddingRight="20pt"
+            android:paddingBottom="140pt"
+            android:showDividers="middle|end">
+
+            <RelativeLayout
+                android:id="@+id/account"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="个人设置"
+                    android:textColor="#000"
+                    android:textSize="26pt" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:src="@drawable/back2" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/check_version"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="检查更新"
+                    android:textColor="#000"
+                    android:textSize="26pt" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:src="@drawable/back2" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="版本"
+                    android:textColor="#000"
+                    android:textSize="26pt" />
+
+                <TextView
+                    android:id="@+id/version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="26pt" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/clean_cache"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="清除缓存"
+                    android:textColor="#000"
+                    android:textSize="26pt" />
+
+                <TextView
+                    android:id="@+id/cache_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="26pt" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll"
+            android:layout_marginTop="140pt"
+            android:background="@drawable/shape2"
+            android:gravity="center"
+            android:text="退出登录"
+            android:textColor="@color/t3" />
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="154pt"
+            android:layout_height="154pt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="176pt" />
+
+    </RelativeLayout>
+</layout>

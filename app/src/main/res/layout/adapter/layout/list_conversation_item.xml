@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="conversation"
+            type="cn.jpush.im.android.api.model.Conversation" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150pt"
+        android:gravity="center_vertical"
+        android:paddingLeft="30pt">
+
+        <ImageView
+            android:id="@+id/head"
+            android:layout_width="100pt"
+            android:layout_height="100pt" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20pt"
+            android:orientation="vertical"
+            android:paddingTop="32pt"
+            android:paddingRight="30pt">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/t2"
+                    android:textSize="32pt"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/t1"
+                    android:textSize="22pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15pt"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxEms="15"
+                    android:maxLines="1"
+                    android:textColor="@color/t1"
+                    android:textSize="28pt" />
+
+                <com.example.qsl.customview.NewsView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="@{conversation.unReadMsgCnt==0?View.GONE:View.VISIBLE}"
+                    app:numText='@{conversation.unReadMsgCnt+""}'
+                    app:reduis="8dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@drawable/divider2" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>
