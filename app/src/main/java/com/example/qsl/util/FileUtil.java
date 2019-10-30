@@ -1,29 +1,27 @@
 package com.example.qsl.util;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import java.io.File;
 
 public class FileUtil {
-
-    public static String getRealFilePathFromUri(final Context context, final Uri uri) {
-        if (null == uri) return null;
-        final String scheme = uri.getScheme();
+    public static String getRealFilePathFromUri(Context context, Uri uri) {
+        if (uri == null) {
+            return null;
+        }
+        String scheme = uri.getScheme();
         String data = null;
         if (scheme == null) {
             data = uri.getPath();
-        }
-        else if (ContentResolver.SCHEME_FILE.equalsIgnoreCase(scheme)) {
+        } else if ("file".equalsIgnoreCase(scheme)) {
             data = uri.getPath();
-        } else if (ContentResolver.SCHEME_CONTENT.equalsIgnoreCase(scheme)) {
-            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
-            if (null != cursor) {
+        } else if ("content".equalsIgnoreCase(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{"_data"}, null, null, null);
+            if (cursor != null) {
                 if (cursor.moveToFirst()) {
-                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    int index = cursor.getColumnIndex("_data");
                     if (index > -1) {
                         data = cursor.getString(index);
                     }
@@ -34,17 +32,15 @@ public class FileUtil {
         return data;
     }
 
-    /**
-     * 检查文件是否存在
-     */
     public static String checkDirPath(String dirPath) {
         if (TextUtils.isEmpty(dirPath)) {
             return "";
         }
         File dir = new File(dirPath);
-        if (!dir.exists()) {
-            dir.mkdirs();
+        if (dir.exists()) {
+            return dirPath;
         }
+        dir.mkdirs();
         return dirPath;
     }
 }

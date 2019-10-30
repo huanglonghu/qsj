@@ -9,6 +9,12 @@
             name="presenter"
             type="com.example.qsl.presenter.Presenter" />
 
+        <variable
+            name="userType"
+            type="int" />
+
+        <import type="android.view.View" />
+
 
     </data>
 
@@ -45,7 +51,6 @@
             android:paddingLeft="20pt"
             android:paddingTop="140pt"
             android:paddingRight="20pt"
-            android:paddingBottom="140pt"
             android:showDividers="middle|end">
 
             <RelativeLayout
@@ -137,6 +142,30 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:textSize="26pt" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/qrcode"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+              >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="我要还款"
+                    android:textColor="#000"
+                    android:textSize="26pt" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:src="@drawable/back2" />
 
             </RelativeLayout>
 

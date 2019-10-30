@@ -5,68 +5,60 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
+import cn.jpush.im.android.api.enums.ContentType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import cn.jpush.im.android.api.enums.ContentType;
-
 public abstract class BaseChatListAdapter<T> extends BaseAdapter {
-
-    public List<T> datas;
     public Context context;
-    private HashMap<Integer, View> viewMap = new HashMap<>();
+    public List<T> datas;
     private LayoutInflater layoutInflater;
-    public HashMap<Integer, ContentType> typeMap = new HashMap<>();
     private int res;
-    public ArrayList<Object> selectList = new ArrayList<>();
+    public ArrayList<Object> selectList = new ArrayList();
+    public HashMap<Integer, ContentType> typeMap = new HashMap();
+    private HashMap<Integer, View> viewMap = new HashMap();
+
+    protected abstract View initView(LayoutInflater layoutInflater, int i, List<T> list, int i2, ViewGroup viewGroup);
 
     public BaseChatListAdapter(Context context, List<T> datas, int res) {
         this.datas = datas;
         this.context = context;
         this.res = res;
-        layoutInflater = LayoutInflater.from(context);
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     public HashMap<Integer, View> getViewMap() {
-        return viewMap;
+        return this.viewMap;
     }
 
     public void setViewMap(HashMap<Integer, View> viewMap) {
         this.viewMap = viewMap;
     }
 
-    @Override
     public int getCount() {
-        return datas == null ? 0 : datas.size();
+        return this.datas == null ? 0 : this.datas.size();
     }
 
-    @Override
     public Object getItem(int position) {
         return null;
     }
 
-    @Override
     public long getItemId(int position) {
-        return position;
+        return (long) position;
     }
 
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (viewMap.get(position) == null) {
-            View view = initView(layoutInflater, res, datas, position, parent);
-            viewMap.put(position, view);
+        if (this.viewMap.get(Integer.valueOf(position)) == null) {
+            this.viewMap.put(Integer.valueOf(position), initView(this.layoutInflater, this.res, this.datas, position, parent));
         }
-        return viewMap.get(position);
+        return (View) this.viewMap.get(Integer.valueOf(position));
     }
-
-    protected abstract View initView(LayoutInflater layoutInflater, int res, List<T> datas, int position, ViewGroup parent);
 
     public void selectAll(boolean select) {
-        for (int i : viewMap.keySet()) {
-            View view = viewMap.get(i);
-            setSelect(view, select, i);
+        for (Integer intValue : this.viewMap.keySet()) {
+            int i = intValue.intValue();
+            setSelect((View) this.viewMap.get(Integer.valueOf(i)), select, i);
         }
     }
 
@@ -74,19 +66,17 @@ public abstract class BaseChatListAdapter<T> extends BaseAdapter {
     }
 
     public void clearView() {
-        viewMap.clear();
+        this.viewMap.clear();
     }
 
-
     public ArrayList<Object> getSelectList() {
-        return selectList;
+        return this.selectList;
     }
 
     public void clearSelectList() {
-        for (int i = 0; i < selectList.size(); i++) {
-            viewMap.remove(i);
+        for (int i = 0; i < this.selectList.size(); i++) {
+            this.viewMap.remove(Integer.valueOf(i));
         }
-        selectList.clear();
+        this.selectList.clear();
     }
-
 }

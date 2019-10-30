@@ -4,43 +4,44 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.MediaStore.Images.Media;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
 import com.example.qsl.Interface.HandlerStrategy;
 import com.example.qsl.R;
 import com.example.qsl.base.BaseFragment;
 import com.example.qsl.bean.EditAvatarBody;
+import com.example.qsl.bean.ImageBean;
 import com.example.qsl.bean.UploadPicture;
+import com.example.qsl.bean.UserMsg;
 import com.example.qsl.catche.Loader.RxImageLoader;
+import com.example.qsl.constant.Constants;
 import com.example.qsl.database.entity.UserBean;
 import com.example.qsl.database.option.UserOption;
 import com.example.qsl.databinding.FragmentAccountBinding;
 import com.example.qsl.net.HttpUtil;
 import com.example.qsl.observable.EventData;
-import com.example.qsl.observable.EventType;
 import com.example.qsl.observable.UserObservable;
 import com.example.qsl.observable.UserObserver;
-import com.example.qsl.presenter.ActivityResultHandler;
+import com.example.qsl.presenter.ActivityResultHandler.Builder;
 import com.example.qsl.presenter.Presenter;
 import com.example.qsl.util.GsonUtil;
 import com.example.qsl.util.ImagUtil;
-import com.example.qsl.util.LogUtil;
-import okhttp3.MultipartBody;
+import okhttp3.MultipartBody.Part;
 
 public class AccountMsg extends BaseFragment {
-
     private FragmentAccountBinding binding;
     private UserBean userBean;
 
     @Nullable
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (binding == null) {
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false);
@@ -53,108 +54,104 @@ public class AccountMsg extends BaseFragment {
         return binding.getRoot();
     }
 
-
-    @Override
     public void initData() {
+        UserBean userBean = UserOption.getInstance().querryUser();
+        if (userBean != null) {
+            if (userBean.getUserType() == 2) {
+                HttpUtil.getInstance().getUserMsg(Constants.userId).subscribe(
+                        srtr -> {
+                            setPhoneNumber(userBean, srtr);
+                        }
+                );
+            } else if (userBean.getUserType() == 3) {
+                HttpUtil.getInstance().getCustomerMsg(Constants.userId).subscribe(
+                        str -> {
+                            setPhoneNumber(userBean, str);
+                        }
+                );
+            }
+        }
 
     }
 
-    @Override
+    private void setPhoneNumber(UserBean userBean, String srtr) {
+        UserMsg userMsg = GsonUtil.fromJson(srtr, UserMsg.class);
+        int code = userMsg.getCode();
+        if (code == 0) {
+            UserMsg.DataBean data = userMsg.getData();
+            String mobile = data.getMobile();
+            userBean.setPhoneNumber(mobile);
+            binding.phoneNumber.setText(mobile);
+            UserOption.getInstance().updateUser(userBean);
+        }
+    }
+
     public void initView() {
         initHead();
     }
 
     private void initHead() {
-        userBean = UserOption.getInstance().querryUser();
-        if (userBean != null) {
-            binding.setUser(userBean);
-            String avatar = userBean.getAvatar();
-            String url = ImagUtil.handleUrl(avatar);
+        this.userBean = UserOption.getInstance().querryUser();
+        if (this.userBean != null) {
+            this.binding.setUser(this.userBean);
+            String url = ImagUtil.handleUrl(this.userBean.getAvatar());
             if (!TextUtils.isEmpty(url)) {
                 RxImageLoader.with(getContext()).getBitmap(url).subscribe(
                         imageBean -> {
-                            Bitmap bitmap = imageBean.getBitmap();
-                            Drawable circle = ImagUtil.circle(getContext(), bitmap);
-                            binding.ivHead.setImageDrawable(circle);
+                            binding.ivHead.setImageDrawable(ImagUtil.circle(getContext(), imageBean.getBitmap()));
                         }
                 );
             }
         }
     }
 
-    @Override
     public void initlisten() {
-        binding.head.setOnClickListener(new View.OnClickListener() {
-            @Override
+        this.binding.head.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                new ActivityResultHandler.Builder().hadlerStrategy(new HandlerStrategy() {
-                    @SuppressLint("CheckResult")
-                    @Override
-                    public void onActivityResult(MultipartBody.Part filePart, Bitmap bitmap) {
-                        Drawable drawable = ImagUtil.circle(getContext(), bitmap);
-                        binding.ivHead.setImageDrawable(drawable);
+                new Builder().hadlerStrategy(new HandlerStrategy() {
+                    @SuppressLint({"CheckResult"})
+                    public void onActivityResult(Part filePart, Bitmap bitmap) {
+                        AccountMsg.this.binding.ivHead.setImageDrawable(ImagUtil.circle(AccountMsg.this.getContext(), bitmap));
                         HttpUtil.getInstance().upload(filePart, userBean.getAvatar()).subscribe(
                                 str -> {
-                                    UploadPicture uploadPicture = GsonUtil.fromJson(str, UploadPicture.class);
-                                    String url = uploadPicture.getData();
+                                    String url = ((UploadPicture) GsonUtil.fromJson(str, UploadPicture.class)).getData();
                                     EditAvatarBody editAvatarBody = new EditAvatarBody();
                                     editAvatarBody.setAvatar(url);
-                                    LogUtil.log("========avatar========"+url);
-                                    editAvatarBody.setId(userBean.getId().intValue());
+                                    editAvatarBody.setId(AccountMsg.this.userBean.getId().intValue());
                                     HttpUtil.getInstance().editHead(editAvatarBody).subscribe(
-                                            str2 -> {
-                                                userBean.setAvatar(url);
-                                                UserOption.getInstance().updateUser(userBean);
+                                            a -> {
+                                                AccountMsg.this.userBean.setAvatar(url);
+                                                UserOption.getInstance().updateUser(AccountMsg.this.userBean);
+                                                UserObservable.getInstance().notifyObservers(new EventData(3));
                                             }
                                     );
                                 }
                         );
-
                     }
-                }).requestCode(ActivityResultHandler.REQUEST_SELECT_PHOTO).intent(intent).activity((AppCompatActivity) getActivity()).build().startActivityForResult();
-
+                }).requestCode(101).intent(new Intent("android.intent.action.PICK", Media.EXTERNAL_CONTENT_URI)).activity((AppCompatActivity) AccountMsg.this.getActivity()).build().startActivityForResult();
             }
         });
-
-
-        binding.changePsw.setOnClickListener(new View.OnClickListener() {
-            @Override
+        this.binding.changePsw.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                EditPwd editPwd = new EditPwd();
-                Presenter.getInstance().step2fragment(editPwd, "editPwd");
+                Presenter.getInstance().step2fragment(new EditPwd(), "editPwd");
             }
         });
-
-
-        binding.nickName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditNickName editNickName = new EditNickName();
-                Presenter.getInstance().step2fragment(editNickName, "editNickName");
-            }
-        });
-
-
-        UserObserver<EventData> userObserver = new UserObserver<EventData>() {
-            @Override
-            public void onUpdate(UserObservable<EventData> observable, EventData data) {
-
-                int eventType = data.getEventType();
-                switch (eventType) {
-                    case EventType.EVENTTYPE_EDIT_NICKNAME:
-                        userBean = UserOption.getInstance().querryUser();
-                        binding.setUser(userBean);
-                        break;
+//        binding.nickName.setOnClickListener(new OnClickListener() {
+//            public void onClick(View v) {
+//                Presenter.getInstance().step2fragment(new EditNickName(), "editNickName");
+//            }
+//        });
+        UserObservable.getInstance().register(new UserObserver<EventData>() {
+            public void onUpdate(UserObservable<EventData> userObservable, EventData data) {
+                switch (data.getEventType()) {
+                    case 2:
+                        AccountMsg.this.userBean = UserOption.getInstance().querryUser();
+                        AccountMsg.this.binding.setUser(AccountMsg.this.userBean);
+                        return;
+                    default:
+                        return;
                 }
-
             }
-        };
-
-        UserObservable.getInstance().register(userObserver);
-
-
+        });
     }
-
-
 }

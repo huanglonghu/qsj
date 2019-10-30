@@ -1,8 +1,6 @@
 package com.example.qsl.util;
 
 import android.content.Context;
-import android.content.res.Resources;
-
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -16,15 +14,13 @@ public class StringUtil {
         format.setCaseType(HanyuPinyinCaseType.LOWERCASE);
         format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
         format.setVCharType(HanyuPinyinVCharType.WITH_V);
-        char[] input = inputString.trim().toCharArray();
         String output = "";
         try {
-            for (char curchar : input) {
+            for (char curchar : inputString.trim().toCharArray()) {
                 if (Character.toString(curchar).matches("[\\u4E00-\\u9FA5]+")) {
-                    String[] temp = PinyinHelper.toHanyuPinyinStringArray(curchar, format);
-                    output += temp[0];
+                    output = output + PinyinHelper.toHanyuPinyinStringArray(curchar, format)[0];
                 } else {
-                    output += Character.toString(curchar);
+                    output = output + Character.toString(curchar);
                 }
             }
         } catch (BadHanyuPinyinOutputFormatCombination e) {
@@ -33,12 +29,7 @@ public class StringUtil {
         return output;
     }
 
-
     public static String getString(Context context, int redId) {
-        Resources resources = context.getResources();
-        String string = resources.getString(redId);
-        return string;
+        return context.getResources().getString(redId);
     }
-
-
 }

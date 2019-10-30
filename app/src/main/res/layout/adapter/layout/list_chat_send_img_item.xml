@@ -36,10 +36,23 @@
             android:orientation="horizontal">
 
 
+            <ProgressBar
+                android:id="@+id/img_loading"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="30pt"
+                android:layout_height="30pt"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@anim/loadmore"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5pt"
+                android:indeterminateDuration="2000" />
+
+
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5pt"
                 android:scaleType="fitXY"
                 />
 

@@ -1,20 +1,11 @@
 package com.example.qsl.bean;
 
 public class ChangePsw {
-
-
-    /**
-     * OldPassword : string
-     * Password : string
-     * Id : 0
-     */
-
     private String OldPassword;
     private String Password;
 
-
     public String getOldPassword() {
-        return OldPassword;
+        return this.OldPassword;
     }
 
     public void setOldPassword(String OldPassword) {
@@ -22,11 +13,10 @@ public class ChangePsw {
     }
 
     public String getPassword() {
-        return Password;
+        return this.Password;
     }
 
     public void setPassword(String Password) {
         this.Password = Password;
     }
-
 }

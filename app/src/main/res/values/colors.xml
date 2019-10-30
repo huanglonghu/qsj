@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#018bee</color>
+    <color name="colorPrimaryDark">#018bee</color>
+    <color name="colorAccent">#018bee</color>
 
 
     <color name="navigation1">#838588</color>
@@ -22,4 +22,8 @@
     <color name="divider">#f8f8f8</color>
 
     <color name="f2">#34495e</color>
+
+    <color name="f1">#dddddd</color>
+
+    <color name="f3">#0481d1</color>
 </resources>

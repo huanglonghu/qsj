@@ -2,57 +2,51 @@ package com.example.qsl.customview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.example.qsl.R;
-
 
 public class LetterView extends LinearLayout {
     private Context mContext;
     private CharacterClickListener mListener;
 
+    public interface CharacterClickListener {
+        void clickArrow();
+
+        void clickCharacter(String str);
+    }
+
     public LetterView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        mContext = context;
-
-        setOrientation(VERTICAL);
-
+        this.mContext = context;
+        setOrientation(LinearLayout.VERTICAL);
         initView();
     }
 
     private void initView() {
         addView(buildImageLayout());
-
-        for (char i = 'A'; i <= 'Z'; i++) {
-            final String character = i + "";
-            TextView tv = buildTextLayout(character);
-
-            addView(tv);
+        for (char i = 'A'; i <= 'Z'; i = (char) (i + 1)) {
+            addView(buildTextLayout(i + ""));
         }
-
         addView(buildTextLayout("#"));
     }
 
     private TextView buildTextLayout(final String character) {
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1);
-
-        TextView tv = new TextView(mContext);
-        tv.setLayoutParams(layoutParams);
-        tv.setGravity(Gravity.CENTER);
+        LayoutParams layoutParams = new LayoutParams(-1, -1, 1.0f);
+        TextView tv = (TextView) LayoutInflater.from(this.mContext).inflate(R.layout.letterview_tv, this, false);
         tv.setClickable(true);
-
         tv.setText(character);
-
+        tv.setLayoutParams(layoutParams);
         tv.setOnClickListener(new OnClickListener() {
-            @Override
             public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.clickCharacter(character);
+                if (LetterView.this.mListener != null) {
+                    LetterView.this.mListener.clickCharacter(character);
                 }
             }
         });
@@ -60,18 +54,14 @@ public class LetterView extends LinearLayout {
     }
 
     private ImageView buildImageLayout() {
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1);
-
-        ImageView iv = new ImageView(mContext);
+        LayoutParams layoutParams = new LayoutParams(-1, -1, 1.0f);
+        ImageView iv = new ImageView(this.mContext);
         iv.setLayoutParams(layoutParams);
-
         iv.setBackgroundResource(R.mipmap.arrow);
-
         iv.setOnClickListener(new OnClickListener() {
-            @Override
             public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.clickArrow();
+                if (LetterView.this.mListener != null) {
+                    LetterView.this.mListener.clickArrow();
                 }
             }
         });
@@ -79,12 +69,6 @@ public class LetterView extends LinearLayout {
     }
 
     public void setCharacterListener(CharacterClickListener listener) {
-        mListener = listener;
-    }
-
-    public interface CharacterClickListener {
-        void clickCharacter(String character);
-
-        void clickArrow();
+        this.mListener = listener;
     }
 }

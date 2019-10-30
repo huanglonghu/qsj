@@ -8,32 +8,26 @@ import android.widget.GridView;
 import java.util.List;
 
 public class EmotionPagerAdapter extends PagerAdapter {
+    private List<GridView> gvs;
 
-	private List<GridView> gvs;
+    public EmotionPagerAdapter(List<GridView> gvs) {
+        this.gvs = gvs;
+    }
 
-	public EmotionPagerAdapter(List<GridView> gvs) {
-		this.gvs = gvs;
-	}
+    public int getCount() {
+        return this.gvs.size();
+    }
 
-	@Override
-	public int getCount() {
-		return gvs.size();
-	}
+    public boolean isViewFromObject(View arg0, Object arg1) {
+        return arg0 == arg1;
+    }
 
-	@Override
-	public boolean isViewFromObject(View arg0, Object arg1) {
-		return arg0 == arg1;
-	}
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        ((ViewPager) container).removeView((View) this.gvs.get(position));
+    }
 
-	@Override
-	public void destroyItem(ViewGroup container, int position, Object object) {
-		((ViewPager) container).removeView(gvs.get(position));
-	}
-
-	@Override
-	public Object instantiateItem(ViewGroup container, int position) {
-		((ViewPager) container).addView(gvs.get(position));
-		return gvs.get(position);
-	}
-
+    public Object instantiateItem(ViewGroup container, int position) {
+        ((ViewPager) container).addView((View) this.gvs.get(position));
+        return this.gvs.get(position);
+    }
 }

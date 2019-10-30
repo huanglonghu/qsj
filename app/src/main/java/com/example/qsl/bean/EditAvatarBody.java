@@ -1,18 +1,11 @@
 package com.example.qsl.bean;
 
 public class EditAvatarBody {
-
-
-    /**
-     * avatar : /User/4/8b65b18ef61140fe806613d23e083bc8.jpg
-     * id : 4
-     */
-
     private String avatar;
     private int id;
 
     public String getAvatar() {
-        return avatar;
+        return this.avatar;
     }
 
     public void setAvatar(String avatar) {
@@ -20,7 +13,7 @@ public class EditAvatarBody {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {

@@ -3,25 +3,22 @@ package com.example.qsl.database.option;
 import com.example.qsl.base.QSLApplication;
 import com.example.qsl.database.UserBeanDao;
 import com.example.qsl.database.entity.UserBean;
-
 import java.util.List;
 
-
 public class UserOption {
+    private static UserOption defaultInstance;
 
     private UserOption() {
     }
 
-    private static UserOption defaultInstance;
-
     public static UserOption getInstance() {
-
         UserOption userOption = defaultInstance;
         if (defaultInstance == null) {
             synchronized (UserOption.class) {
                 if (defaultInstance == null) {
-                    userOption = new UserOption();
-                    defaultInstance = userOption;
+                    UserOption userOption2 = new UserOption();
+                    defaultInstance = userOption2;
+                    userOption = userOption2;
                 }
             }
         }
@@ -32,31 +29,24 @@ public class UserOption {
         UserBeanDao userBeanDao = QSLApplication.getApplication().getDaoSession().getUserBeanDao();
         if (querryUser() == null) {
             userBeanDao.insert(userBean);
-        }else {
+        } else {
             userBeanDao.update(userBean);
         }
     }
 
     public UserBean querryUser() {
-        UserBeanDao userBeanDao = QSLApplication.getApplication().getDaoSession().getUserBeanDao();
-        List<UserBean> list = userBeanDao.queryBuilder().list();
-        if (list != null && list.size() > 0) {
-            return list.get(0);
-        } else {
+        List<UserBean> list = QSLApplication.getApplication().getDaoSession().getUserBeanDao().queryBuilder().list();
+        if (list == null || list.size() <= 0) {
             return null;
         }
+        return (UserBean) list.get(0);
     }
 
     public void updateUser(UserBean userBean) {
-        UserBeanDao userBeanDao = QSLApplication.getApplication().getDaoSession().getUserBeanDao();
-        userBeanDao.update(userBean);
+        QSLApplication.getApplication().getDaoSession().getUserBeanDao().update(userBean);
     }
-
 
     public void delteUser() {
-        UserBeanDao userBeanDao = QSLApplication.getApplication().getDaoSession().getUserBeanDao();
-        userBeanDao.deleteAll();
+        QSLApplication.getApplication().getDaoSession().getUserBeanDao().deleteAll();
     }
-
-
 }

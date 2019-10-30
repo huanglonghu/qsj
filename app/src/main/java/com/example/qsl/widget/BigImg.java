@@ -6,12 +6,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import com.example.qsl.R;
 import com.example.qsl.base.QSLApplication;
-
+import com.example.qsl.customview.MyImageView;
 
 public class BigImg extends PopupWindow {
 
@@ -26,8 +25,9 @@ public class BigImg extends PopupWindow {
         setBackgroundDrawable(new ColorDrawable(Color.BLACK));
         int windownWidth = QSLApplication.getApplication().getWindownWidth();
         int i = (windownWidth / width) * height;
-        ImageView imageView = new ImageView(context);
+        MyImageView imageView = new MyImageView(context);
         imageView.setImageBitmap(bitmap);
+        imageView.initListener();
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(layoutParams);
         setContentView(imageView);

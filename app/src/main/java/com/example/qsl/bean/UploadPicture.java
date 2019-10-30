@@ -1,20 +1,12 @@
 package com.example.qsl.bean;
 
 public class UploadPicture {
-
-
-    /**
-     * code : 0
-     * msg : success
-     * data : /User/4/14f90f89d11048428975a6642ed82b80.jpg
-     */
-
     private int code;
-    private String msg;
     private String data;
+    private String msg;
 
     public int getCode() {
-        return code;
+        return this.code;
     }
 
     public void setCode(int code) {
@@ -22,7 +14,7 @@ public class UploadPicture {
     }
 
     public String getMsg() {
-        return msg;
+        return this.msg;
     }
 
     public void setMsg(String msg) {
@@ -30,7 +22,7 @@ public class UploadPicture {
     }
 
     public String getData() {
-        return data;
+        return this.data;
     }
 
     public void setData(String data) {

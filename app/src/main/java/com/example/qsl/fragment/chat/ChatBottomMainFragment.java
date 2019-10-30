@@ -10,109 +10,84 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.qsl.R;
 import com.example.qsl.base.BaseFragment;
 import com.example.qsl.databinding.ChatBottomMainBinding;
+import com.example.qsl.fragment.chat.Chat.OnBottomCancleListener;
 import java.util.ArrayList;
 
 public class ChatBottomMainFragment extends BaseFragment {
     private ChatBottomMainBinding binding;
+    private View contentView;
     private EmotionKeyboard mEmotionKeyboard;
 
     @Nullable
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (binding == null) {
-            binding = DataBindingUtil.inflate(inflater, R.layout.chat_bottom_main, container, false);
-            Chat chat = (Chat) getParentFragment();
-            binding.conversation.addTextChangedListener(new TextWatcher() {
-                @Override
+        if (this.binding == null) {
+            this.binding = (ChatBottomMainBinding) DataBindingUtil.inflate(inflater, R.layout.chat_bottom_main, container, false);
+            final Chat chat = (Chat) getParentFragment();
+            this.binding.conversation.addTextChangedListener(new TextWatcher() {
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 }
 
-                @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                 }
 
-                @Override
                 public void afterTextChanged(Editable s) {
                     if (TextUtils.isEmpty(s)) {
-                        binding.add.setVisibility(View.VISIBLE);
-                        binding.send.setVisibility(View.GONE);
-                    } else {
-                        binding.add.setVisibility(View.GONE);
-                        binding.send.setVisibility(View.VISIBLE);
-                    }
-                }
-            });
-            binding.send.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String sendContent = binding.conversation.getText().toString();
-                    if (TextUtils.isEmpty(sendContent)) {
-                        Toast.makeText(getContext(), "请输入聊天内容", Toast.LENGTH_SHORT).show();
+                        ChatBottomMainFragment.this.binding.add.setVisibility(View.VISIBLE);
+                        ChatBottomMainFragment.this.binding.send.setVisibility(View.GONE);
                         return;
                     }
-                    binding.conversation.setText("");
+                    ChatBottomMainFragment.this.binding.add.setVisibility(View.GONE);
+                    ChatBottomMainFragment.this.binding.send.setVisibility(View.VISIBLE);
+                }
+            });
+            this.binding.send.setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+                    String sendContent = ChatBottomMainFragment.this.binding.conversation.getText().toString();
+                    if (TextUtils.isEmpty(sendContent)) {
+                        Toast.makeText(ChatBottomMainFragment.this.getContext(), "请输入聊天内容", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    ChatBottomMainFragment.this.binding.conversation.setText("");
                     chat.sendTextMessage(sendContent);
                 }
             });
-
-
-
-            GlobalOnItemClickManagerUtils.getInstance(getContext()).attachToEditText(binding.conversation);
+            GlobalOnItemClickManagerUtils.getInstance(getContext()).attachToEditText(this.binding.conversation);
             FragmentManager cfm = getChildFragmentManager();
-            ArrayList<BaseFragment> fragments = new ArrayList<>();
+            ArrayList<BaseFragment> fragments = new ArrayList();
             fragments.add(new ChatEmojiFragment());
             ChatAddFragment chatAddFragment = new ChatAddFragment();
             chatAddFragment.chat(chat);
             fragments.add(chatAddFragment);
-            mEmotionKeyboard = EmotionKeyboard.with(getActivity())
-                    .setEmotionView(binding.botoomLyoutContainer)//绑定表情面板
-                    .bindToContent(contentView)//绑定内容view
-                    .fragments(fragments, cfm)
-                    .bindToEditText(binding.conversation)//判断绑定那种EditView
-                    .bindToEmotionButton(binding.emoji, 0)//绑定表情按钮
-                    .bindToEmotionButton(binding.add, 1)
-                    .build();
-            chat.setOnBottomCancleListener(new Chat.OnBottomCancleListener() {
-                @Override
+            this.mEmotionKeyboard = EmotionKeyboard.with(getActivity()).setEmotionView(this.binding.botoomLyoutContainer).bindToContent(this.contentView).fragments(fragments, cfm).bindToEditText(this.binding.conversation).bindToEmotionButton(this.binding.emoji, 0).bindToEmotionButton(this.binding.add, 1).build();
+            chat.setOnBottomCancleListener(new OnBottomCancleListener() {
                 public void bottomCancle() {
-                    mEmotionKeyboard.interceptBackPress();
+                    ChatBottomMainFragment.this.mEmotionKeyboard.interceptBackPress();
                 }
             });
-
         }
-        return binding.getRoot();
+        return this.binding.getRoot();
     }
 
     public void setCyy(String string) {
-        binding.conversation.setText(string);
+        this.binding.conversation.setText(string);
     }
 
-
-    @Override
     public void initData() {
-
     }
 
-    @Override
     public void initView() {
-
     }
 
-    @Override
     public void initlisten() {
-
     }
-
-    private View contentView;
 
     public void bindToContentView(View contentView) {
         this.contentView = contentView;
     }
-
-
 }

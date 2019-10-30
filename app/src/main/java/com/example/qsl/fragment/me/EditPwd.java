@@ -2,18 +2,20 @@ package com.example.qsl.fragment.me;
 
 import android.annotation.SuppressLint;
 import android.databinding.DataBindingUtil;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.qsl.R;
 import com.example.qsl.base.BaseFragment;
 import com.example.qsl.bean.ChangePsw;
+import com.example.qsl.bean.ImageBean;
 import com.example.qsl.catche.Loader.RxImageLoader;
 import com.example.qsl.database.entity.UserBean;
 import com.example.qsl.database.option.UserOption;
@@ -25,84 +27,65 @@ import com.example.qsl.util.ImagUtil;
 import org.json.JSONObject;
 
 public class EditPwd extends BaseFragment {
-
     private EditPwdBinding binding;
     private ChangePsw changePsw;
     private UserBean userBean;
 
     @Nullable
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (binding == null) {
-            binding = DataBindingUtil.inflate(inflater, R.layout.edit_pwd, container, false);
-            binding.setPresenter(Presenter.getInstance());
+        if (this.binding == null) {
+            this.binding = (EditPwdBinding) DataBindingUtil.inflate(inflater, R.layout.edit_pwd, container, false);
+            this.binding.setPresenter(Presenter.getInstance());
             initData();
             initlisten();
         }
-        return binding.getRoot();
+        return this.binding.getRoot();
     }
 
-    @Override
     public void initData() {
-        userBean = UserOption.getInstance().querryUser();
-        String avatar = userBean.getAvatar();
-        String url = ImagUtil.handleUrl(avatar);
+        this.userBean = UserOption.getInstance().querryUser();
+        String url = ImagUtil.handleUrl(this.userBean.getAvatar());
         if (!TextUtils.isEmpty(url)) {
             RxImageLoader.with(getContext()).getBitmap(url).subscribe(
                     imageBean -> {
-                        Drawable drawable = ImagUtil.circle(getContext(), imageBean.getBitmap());
-                        binding.head.setImageDrawable(drawable);
+                        binding.head.setImageDrawable(ImagUtil.circle(getContext(), imageBean.getBitmap()));
                     }
             );
         }
-        changePsw = new ChangePsw();
-        binding.setChangePsw(changePsw);
+        this.changePsw = new ChangePsw();
+        this.binding.setChangePsw(this.changePsw);
     }
 
-    @Override
+
     public void initView() {
-
     }
 
-    @Override
     public void initlisten() {
-        binding.complete.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("CheckResult")
-            @Override
+        this.binding.complete.setOnClickListener(new OnClickListener() {
+            @SuppressLint({"CheckResult"})
             public void onClick(View v) {
-                if (TextUtils.isEmpty(changePsw.getOldPassword())) {
-                    Toast.makeText(getContext(), "请填写原密码", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(changePsw.getPassword())) {
-                    Toast.makeText(getContext(), "请填写新密码", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(binding.surePsw.getText().toString())) {
-                    Toast.makeText(getContext(), "请确认新密码", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (!changePsw.getPassword().equals(binding.surePsw.getText().toString())) {
-                    Toast.makeText(getContext(), "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                HttpUtil.getInstance().changePsw(changePsw).subscribe(
-                        str -> {
-                            JSONObject jo = new JSONObject(str);
-                            int code = jo.getInt("code");
-                            if (code == 0) {
-                                Toast.makeText(getContext(), "密码修改成功", Toast.LENGTH_SHORT).show();
-                                Presenter.getInstance().back();
-                            } else {
-                                String msg = jo.getString("msg");
-                                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(EditPwd.this.changePsw.getOldPassword())) {
+                    Toast.makeText(EditPwd.this.getContext(), "请填写原密码", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(EditPwd.this.changePsw.getPassword())) {
+                    Toast.makeText(EditPwd.this.getContext(), "请填写新密码", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(EditPwd.this.binding.surePsw.getText().toString())) {
+                    Toast.makeText(EditPwd.this.getContext(), "请确认新密码", Toast.LENGTH_SHORT).show();
+                } else if (EditPwd.this.changePsw.getPassword().equals(EditPwd.this.binding.surePsw.getText().toString())) {
+                    HttpUtil.getInstance().changePsw(EditPwd.this.changePsw).subscribe(
+                            str -> {
+                                JSONObject jo = new JSONObject(str);
+                                if (jo.getInt("code") == 0) {
+                                    Toast.makeText(EditPwd.this.getContext(), "密码修改成功", Toast.LENGTH_SHORT).show();
+                                    Presenter.getInstance().back();
+                                    return;
+                                }
+                                Toast.makeText(EditPwd.this.getContext(), jo.getString(NotificationCompat.CATEGORY_MESSAGE), Toast.LENGTH_SHORT).show();
                             }
-                        }
-                );
+                    );
+                } else {
+                    Toast.makeText(EditPwd.this.getContext(), "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
     }
 }

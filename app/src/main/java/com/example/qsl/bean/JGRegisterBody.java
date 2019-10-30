@@ -1,20 +1,12 @@
 package com.example.qsl.bean;
 
 public class JGRegisterBody {
-
-
-    /**
-     * userId : 0
-     * userType : 0
-     * userName : string
-     */
-
     private int userId;
-    private int userType;
     private String userName;
+    private int userType;
 
     public int getUserId() {
-        return userId;
+        return this.userId;
     }
 
     public void setUserId(int userId) {
@@ -22,7 +14,7 @@ public class JGRegisterBody {
     }
 
     public int getUserType() {
-        return userType;
+        return this.userType;
     }
 
     public void setUserType(int userType) {
@@ -30,7 +22,7 @@ public class JGRegisterBody {
     }
 
     public String getUserName() {
-        return userName;
+        return this.userName;
     }
 
     public void setUserName(String userName) {

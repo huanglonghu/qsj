@@ -3,26 +3,22 @@ package com.example.qsl.bean;
 import java.util.ArrayList;
 
 public class ContactData {
-
-
     private String charcter;
-
-    private ArrayList<ContactsResponse.DataBean.ItemsBean> contacts;
-
+    private ArrayList<ContactBean> contacts;
 
     public String getCharcter() {
-        return charcter;
+        return this.charcter;
     }
 
     public void setCharcter(String charcter) {
         this.charcter = charcter;
     }
 
-    public ArrayList<ContactsResponse.DataBean.ItemsBean> getContacts() {
-        return contacts;
+    public ArrayList<ContactBean> getContacts() {
+        return this.contacts;
     }
 
-    public void setContacts(ArrayList<ContactsResponse.DataBean.ItemsBean> contacts) {
+    public void setContacts(ArrayList<ContactBean> contacts) {
         this.contacts = contacts;
     }
 }

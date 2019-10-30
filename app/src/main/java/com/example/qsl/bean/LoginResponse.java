@@ -1,59 +1,19 @@
 package com.example.qsl.bean;
 
 public class LoginResponse {
-
-
-    /**
-     * code : 0
-     * msg : success
-     * data : {"userName":"小7","avatar":"/images/face.jpg","userType":2,"token":null,"id":-9223372036854774807}
-     */
-
     private int code;
-    private String msg;
     private DataBean data;
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public DataBean getData() {
-        return data;
-    }
-
-    public void setData(DataBean data) {
-        this.data = data;
-    }
+    private String msg;
 
     public static class DataBean {
-        /**
-         * userName : 小7
-         * avatar : /images/face.jpg
-         * userType : 2
-         * token : null
-         * id : -9223372036854774807
-         */
-
-        private String userName;
         private String avatar;
-        private int userType;
-        private String token;
         private long id;
+        private String token;
+        private String userName;
+        private int userType;
 
         public String getUserName() {
-            return userName;
+            return this.userName;
         }
 
         public void setUserName(String userName) {
@@ -61,7 +21,7 @@ public class LoginResponse {
         }
 
         public String getAvatar() {
-            return avatar;
+            return this.avatar;
         }
 
         public void setAvatar(String avatar) {
@@ -69,7 +29,7 @@ public class LoginResponse {
         }
 
         public int getUserType() {
-            return userType;
+            return this.userType;
         }
 
         public void setUserType(int userType) {
@@ -77,7 +37,7 @@ public class LoginResponse {
         }
 
         public String getToken() {
-            return token;
+            return this.token;
         }
 
         public void setToken(String token) {
@@ -85,11 +45,35 @@ public class LoginResponse {
         }
 
         public long getId() {
-            return id;
+            return this.id;
         }
 
         public void setId(long id) {
             this.id = id;
         }
+    }
+
+    public int getCode() {
+        return this.code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return this.msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public DataBean getData() {
+        return this.data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
     }
 }

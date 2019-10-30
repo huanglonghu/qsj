@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="bean"
+            type="com.example.qsl.bean.QrcodeMsg.DataBean" />
+
+        <variable
+            name="bankBean"
+            type="com.example.qsl.bean.BankCardMsg.DataBean.ItemsBean" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="90pt"
+            android:background="#0159eb"
+            android:gravity="center"
+            android:text="还款信息"
+            android:textColor="#fff"
+            android:textSize="37pt" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="30pt"
+            android:paddingRight="30pt">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="400pt"
+                android:layout_marginTop="40pt"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/f1"
+                    android:orientation="vertical"
+                    android:paddingLeft="18pt"
+                    android:paddingTop="18pt"
+                    android:paddingRight="18pt">
+
+
+                    <ImageView
+                        android:id="@+id/zfb_qrcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="298pt"
+                        android:background="@drawable/empty" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="支付宝收款码"
+                        android:textColor="@color/f3"
+                        android:textSize="28pt" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="30pt"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/f1"
+                    android:orientation="vertical"
+                    android:paddingLeft="18pt"
+                    android:paddingTop="18pt"
+                    android:paddingRight="18pt">
+
+
+                    <ImageView
+                        android:id="@+id/wx_qrcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="298pt"
+                        android:background="@drawable/empty" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="微信收款码"
+                        android:textColor="@color/f3"
+                        android:textSize="28pt" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40pt"
+                android:layout_marginBottom="18pt"
+                android:text="银行账号"
+                android:textColor="#000"
+                android:textSize="33pt" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/divider3"
+                android:orientation="vertical"
+                android:showDividers="middle">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90pt"
+                    android:background="@drawable/shape7"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20pt">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开户银行："
+                        android:textColor="#99999b"
+                        android:textSize="25pt" />
+
+                    <EditText
+                        android:id="@+id/bankName"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="@{bankBean.bank}"
+                        android:textSize="25pt" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90pt"
+                    android:background="@drawable/shape7"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20pt">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开户支行："
+                        android:textColor="#99999b"
+                        android:textSize="25pt" />
+
+                    <EditText
+                        android:id="@+id/subBranch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="@{bankBean.subBranch}"
+                        android:textSize="25pt" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90pt"
+                    android:background="@drawable/shape7"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20pt">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开户姓名："
+                        android:textColor="#99999b"
+                        android:textSize="25pt" />
+
+                    <EditText
+                        android:id="@+id/accountName"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="@{bankBean.name}"
+                        android:textSize="25pt" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90pt"
+                    android:background="@drawable/shape7"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20pt">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="银行卡号："
+                        android:textColor="#99999b"
+                        android:textSize="25pt" />
+
+                    <EditText
+                        android:id="@+id/cardNum"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="@{bankBean.card}"
+                        android:textSize="25pt" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

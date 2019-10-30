@@ -2,6 +2,7 @@ package com.example.qsl.util;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
@@ -9,156 +10,94 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.WindowManager;
-
 import java.lang.reflect.Field;
 
-import static android.content.Context.WINDOW_SERVICE;
-
 public class RudenessScreenHelper {
+    private ActivityLifecycleCallbacks activityLifecycleCallbacks;
+    private float designWidth = 720.0f;
+    private Application mApplication;
 
-    /**
-     * 重新计算displayMetrics.xhdpi, 使单位pt重定义为设计稿的相对长度
-     * @see #activate()
-     *
-     * @param context
-     * @param designWidth 设计稿的宽度
-     */
-    public static void resetDensity(Context context, float designWidth){
-        if(context == null)
-            return;
-
-        Point size = new Point();
-        ((WindowManager)context.getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getSize(size);
-
-        Resources resources = context.getResources();
-
-        resources.getDisplayMetrics().xdpi = size.x/designWidth*72f;
-
-        DisplayMetrics metrics = getMetricsOnMiui(context.getResources());
-        if(metrics != null)
-            metrics.xdpi = size.x/designWidth*72f;
-    }
-
-    /**
-     * 恢复displayMetrics为系统原生状态，单位pt恢复为长度单位磅
-     * @see #inactivate()
-     *
-     * @param context
-     */
-    public static void restoreDensity(Context context){
-        context.getResources().getDisplayMetrics().setToDefaults();
-
-        DisplayMetrics metrics = getMetricsOnMiui(context.getResources());
-        if(metrics != null)
-            metrics.setToDefaults();
-    }
-
-    //解决MIUI更改框架导致的MIUI7+Android5.1.1上出现的失效问题(以及极少数基于这部分miui去掉art然后置入xposed的手机)
-    private static DisplayMetrics getMetricsOnMiui(Resources resources){
-        if("MiuiResources".equals(resources.getClass().getSimpleName()) || "XResources".equals(resources.getClass().getSimpleName())){
-            try {
-                Field field = Resources.class.getDeclaredField("mTmpMetrics");
-                field.setAccessible(true);
-                return  (DisplayMetrics) field.get(resources);
-            } catch (Exception e) {
-                return null;
+    public static void resetDensity(Context context, float designWidth) {
+        if (context != null) {
+            Point size = new Point();
+            ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(size);
+            context.getResources().getDisplayMetrics().xdpi = (((float) size.x) / designWidth) * 72.0f;
+            DisplayMetrics metrics = getMetricsOnMiui(context.getResources());
+            if (metrics != null) {
+                metrics.xdpi = (((float) size.x) / designWidth) * 72.0f;
             }
         }
-        return null;
     }
 
-    /**
-     * 转换dp为px
-     * @param context context
-     * @param value 需要转换的dp值
-     * @return px值
-     */
-    public static float dp2px(Context context, float value){
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.getResources().getDisplayMetrics());
+    public static void restoreDensity(Context context) {
+        context.getResources().getDisplayMetrics().setToDefaults();
+        DisplayMetrics metrics = getMetricsOnMiui(context.getResources());
+        if (metrics != null) {
+            metrics.setToDefaults();
+        }
     }
 
-    /**
-     * 转换pt为px
-     * @param context context
-     * @param value 需要转换的pt值，若context.resources.displayMetrics经过resetDensity()的修改则得到修正的相对长度，否则得到原生的磅
-     * @return px值
-     */
-    public static float pt2px(Context context, float value){
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, value, context.getResources().getDisplayMetrics());
+    private static DisplayMetrics getMetricsOnMiui(Resources resources) {
+        if (!"MiuiResources".equals(resources.getClass().getSimpleName()) && !"XResources".equals(resources.getClass().getSimpleName())) {
+            return null;
+        }
+        try {
+            Field field = Resources.class.getDeclaredField("mTmpMetrics");
+            field.setAccessible(true);
+            return (DisplayMetrics) field.get(resources);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
+    public static float dp2px(Context context, float value) {
+        return TypedValue.applyDimension(1, value, context.getResources().getDisplayMetrics());
+    }
 
-    private Application.ActivityLifecycleCallbacks activityLifecycleCallbacks;
-    private Application mApplication;
-    private float designWidth = 720;
+    public static float pt2px(Context context, float value) {
+        return TypedValue.applyDimension(3, value, context.getResources().getDisplayMetrics());
+    }
 
-    /**
-     *
-     * @param application application
-     * @param width 设计稿宽度
-     */
-    public RudenessScreenHelper(Application application, float width){
-        mApplication = application;
-        designWidth = width;
-
-        activityLifecycleCallbacks = new Application.ActivityLifecycleCallbacks() {
-            @Override
+    public RudenessScreenHelper(Application application, float width) {
+        this.mApplication = application;
+        this.designWidth = width;
+        this.activityLifecycleCallbacks = new ActivityLifecycleCallbacks() {
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                //通常情况下application与activity得到的resource虽然不是一个实例，但是displayMetrics是同一个实例，只需调用一次即可
-                //为了面对一些不可预计的情况以及向上兼容，分别调用一次较为保险
-                resetDensity(mApplication, designWidth);
-                resetDensity(activity, designWidth);
+                RudenessScreenHelper.resetDensity(RudenessScreenHelper.this.mApplication, RudenessScreenHelper.this.designWidth);
+                RudenessScreenHelper.resetDensity(activity, RudenessScreenHelper.this.designWidth);
             }
 
-            @Override
             public void onActivityStarted(Activity activity) {
-                resetDensity(mApplication, designWidth);
-                resetDensity(activity, designWidth);
+                RudenessScreenHelper.resetDensity(RudenessScreenHelper.this.mApplication, RudenessScreenHelper.this.designWidth);
+                RudenessScreenHelper.resetDensity(activity, RudenessScreenHelper.this.designWidth);
             }
 
-            @Override
             public void onActivityResumed(Activity activity) {
-                resetDensity(mApplication, designWidth);
-                resetDensity(activity, designWidth);
+                RudenessScreenHelper.resetDensity(RudenessScreenHelper.this.mApplication, RudenessScreenHelper.this.designWidth);
+                RudenessScreenHelper.resetDensity(activity, RudenessScreenHelper.this.designWidth);
             }
 
-            @Override
             public void onActivityPaused(Activity activity) {
-
             }
 
-            @Override
             public void onActivityStopped(Activity activity) {
-
             }
 
-            @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
             }
 
-            @Override
             public void onActivityDestroyed(Activity activity) {
-
             }
         };
     }
 
-    /**
-     * 激活本方案
-     */
-    public void activate(){
-        resetDensity(mApplication, designWidth);
-        mApplication.registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
+    public void activate() {
+        resetDensity(this.mApplication, this.designWidth);
+        this.mApplication.registerActivityLifecycleCallbacks(this.activityLifecycleCallbacks);
     }
 
-    /**
-     * 恢复系统原生方案
-     */
-    public void inactivate(){
-        restoreDensity(mApplication);
-        mApplication.unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks);
+    public void inactivate() {
+        restoreDensity(this.mApplication);
+        this.mApplication.unregisterActivityLifecycleCallbacks(this.activityLifecycleCallbacks);
     }
-
-
 }

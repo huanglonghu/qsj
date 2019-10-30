@@ -9,12 +9,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-
 import com.example.qsl.Interface.ClickSureListener;
 import com.example.qsl.R;
 import com.example.qsl.base.QSLApplication;
 import com.example.qsl.databinding.LayoutTipBinding;
-
 
 public class TipDialog extends Dialog {
 

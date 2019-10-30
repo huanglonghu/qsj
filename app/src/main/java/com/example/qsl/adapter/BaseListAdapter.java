@@ -52,8 +52,8 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (viewMap.get(position) == null) {
-            View view = initView(layoutInflater, res, datas, position, parent);
-            viewMap.put(position, view);
+            convertView = initView(layoutInflater, res, datas, position, parent);
+            viewMap.put(position, convertView);
         }
         return viewMap.get(position);
     }

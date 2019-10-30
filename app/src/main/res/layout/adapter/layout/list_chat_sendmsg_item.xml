@@ -25,6 +25,8 @@
             android:paddingTop="10pt"
             android:paddingRight="12pt"
             android:paddingBottom="10pt"
+            android:textColorHighlight="#CCCCCC"
+            android:textIsSelectable="true"
             android:textSize="18pt"
             android:textColor="#fff" />
 
@@ -36,6 +38,16 @@
             android:layout_marginBottom="20pt"
             android:gravity="center_vertical|right"
             android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/img_loading"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="30pt"
+                android:layout_height="30pt"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@anim/loadmore"
+                android:layout_gravity="center_vertical"
+                android:indeterminateDuration="2000" />
 
 
             <com.example.qsl.customview.chat.ChatView xmlns:chat="http://schemas.android.com/apk/res-auto"
@@ -56,15 +68,20 @@
                 chat:stroke_color="#FFFFFF"
                 chat:stroke_width="1px">
 
-                <TextView
+                <EditText
                     android:id="@+id/content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="20pt"
+                    android:editable="false"
+                    android:background="@null"
+                    android:textCursorDrawable="@null"
                     android:paddingTop="20pt"
                     android:paddingLeft="20pt"
                     android:paddingRight="30pt"
                     android:layout_centerInParent="true"
+                    android:textColorHighlight="#CCCCCC"
+                    android:textIsSelectable="true"
                     android:textColor="@color/t2"
                     android:textSize="28pt" />
 

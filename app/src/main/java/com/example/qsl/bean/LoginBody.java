@@ -1,13 +1,12 @@
 package com.example.qsl.bean;
 
 public class LoginBody {
-
+    private String code;
     private String mobile;
     private String password;
-    private String code;
 
     public String getMobile() {
-        return mobile;
+        return this.mobile;
     }
 
     public void setMobile(String mobile) {
@@ -15,7 +14,7 @@ public class LoginBody {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
@@ -23,7 +22,7 @@ public class LoginBody {
     }
 
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     public void setCode(String code) {

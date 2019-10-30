@@ -3,7 +3,9 @@ package com.example.qsl.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
+
 import java.lang.reflect.Type;
+
 
 public class GsonUtil {
 

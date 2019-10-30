@@ -24,10 +24,10 @@ public class FriendDao extends AbstractDao<Friend, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property UserName = new Property(1, String.class, "userName", false, "USER_NAME");
-        public final static Property HeadImageUrl = new Property(2, String.class, "headImageUrl", false, "HEAD_IMAGE_URL");
-        public final static Property FirstChar = new Property(3, String.class, "firstChar", false, "FIRST_CHAR");
+        public final static Property FirstChar = new Property(0, String.class, "firstChar", false, "FIRST_CHAR");
+        public final static Property HeadImageUrl = new Property(1, String.class, "headImageUrl", false, "HEAD_IMAGE_URL");
+        public final static Property Id = new Property(2, Long.class, "id", true, "_id");
+        public final static Property UserName = new Property(3, String.class, "userName", false, "USER_NAME");
     }
 
 
@@ -43,10 +43,10 @@ public class FriendDao extends AbstractDao<Friend, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"FRIEND\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"USER_NAME\" TEXT," + // 1: userName
-                "\"HEAD_IMAGE_URL\" TEXT," + // 2: headImageUrl
-                "\"FIRST_CHAR\" TEXT);"); // 3: firstChar
+                "\"FIRST_CHAR\" TEXT," + // 0: firstChar
+                "\"HEAD_IMAGE_URL\" TEXT," + // 1: headImageUrl
+                "\"_id\" INTEGER PRIMARY KEY ," + // 2: id
+                "\"USER_NAME\" TEXT);"); // 3: userName
     }
 
     /** Drops the underlying database table. */
@@ -59,24 +59,24 @@ public class FriendDao extends AbstractDao<Friend, Long> {
     protected final void bindValues(DatabaseStatement stmt, Friend entity) {
         stmt.clearBindings();
  
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
- 
-        String userName = entity.getUserName();
-        if (userName != null) {
-            stmt.bindString(2, userName);
+        String firstChar = entity.getFirstChar();
+        if (firstChar != null) {
+            stmt.bindString(1, firstChar);
         }
  
         String headImageUrl = entity.getHeadImageUrl();
         if (headImageUrl != null) {
-            stmt.bindString(3, headImageUrl);
+            stmt.bindString(2, headImageUrl);
         }
  
-        String firstChar = entity.getFirstChar();
-        if (firstChar != null) {
-            stmt.bindString(4, firstChar);
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(3, id);
+        }
+ 
+        String userName = entity.getUserName();
+        if (userName != null) {
+            stmt.bindString(4, userName);
         }
     }
 
@@ -84,49 +84,49 @@ public class FriendDao extends AbstractDao<Friend, Long> {
     protected final void bindValues(SQLiteStatement stmt, Friend entity) {
         stmt.clearBindings();
  
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
- 
-        String userName = entity.getUserName();
-        if (userName != null) {
-            stmt.bindString(2, userName);
+        String firstChar = entity.getFirstChar();
+        if (firstChar != null) {
+            stmt.bindString(1, firstChar);
         }
  
         String headImageUrl = entity.getHeadImageUrl();
         if (headImageUrl != null) {
-            stmt.bindString(3, headImageUrl);
+            stmt.bindString(2, headImageUrl);
         }
  
-        String firstChar = entity.getFirstChar();
-        if (firstChar != null) {
-            stmt.bindString(4, firstChar);
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(3, id);
+        }
+ 
+        String userName = entity.getUserName();
+        if (userName != null) {
+            stmt.bindString(4, userName);
         }
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2);
     }    
 
     @Override
     public Friend readEntity(Cursor cursor, int offset) {
         Friend entity = new Friend( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // userName
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // headImageUrl
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // firstChar
+            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // firstChar
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // headImageUrl
+            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // id
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // userName
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, Friend entity, int offset) {
-        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setUserName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setHeadImageUrl(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setFirstChar(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setFirstChar(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
+        entity.setHeadImageUrl(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setId(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
+        entity.setUserName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     @Override

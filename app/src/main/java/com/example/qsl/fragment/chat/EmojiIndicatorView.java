@@ -4,18 +4,18 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import com.example.qsl.R;
 import com.example.qsl.util.RudenessScreenHelper;
 import java.util.ArrayList;
 
 public class EmojiIndicatorView extends LinearLayout {
-
     private Context mContext;
-    private ArrayList<View> mImageViews;//所有指示器集合
-    private int size = 6;
-    private int marginSize = 15;
-    private int pointSize;//指示器的大小
-    private int marginLeft;//间距
+    private ArrayList<View> mImageViews;
+    private int marginLeft;
+    private int marginSize;
+    private int pointSize;
+    private int size;
 
     public EmojiIndicatorView(Context context) {
         this(context, null);
@@ -27,47 +27,40 @@ public class EmojiIndicatorView extends LinearLayout {
 
     public EmojiIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mContext = context;
-        pointSize = (int) RudenessScreenHelper.dp2px(context, size);
-        marginLeft = (int) RudenessScreenHelper.dp2px(context, marginSize);
+        this.size = 6;
+        this.marginSize = 15;
+        this.mContext = context;
+        this.pointSize = (int) RudenessScreenHelper.dp2px(context, (float) this.size);
+        this.marginLeft = (int) RudenessScreenHelper.dp2px(context, (float) this.marginSize);
     }
 
-    /**
-     * 初始化指示器
-     *
-     * @param count 指示器的数量
-     */
     public void initIndicator(int count) {
-        mImageViews = new ArrayList<>();
-        this.removeAllViews();
-        LayoutParams lp;
+        this.mImageViews = new ArrayList();
+        removeAllViews();
         for (int i = 0; i < count; i++) {
-            View v = new View(mContext);
-            lp = new LayoutParams(pointSize, pointSize);
-            if (i != 0)
-                lp.leftMargin = marginLeft;
+            View v = new View(this.mContext);
+            LayoutParams lp = new LayoutParams(this.pointSize, this.pointSize);
+            if (i != 0) {
+                lp.leftMargin = this.marginLeft;
+            }
             v.setLayoutParams(lp);
             if (i == 0) {
                 v.setBackgroundResource(R.drawable.shape_bg_indicator_point_select);
             } else {
                 v.setBackgroundResource(R.drawable.shape_bg_indicator_point_nomal);
             }
-            mImageViews.add(v);
-            this.addView(v);
+            this.mImageViews.add(v);
+            addView(v);
         }
     }
 
-    /**
-     * 页面移动时切换指示器
-     */
     public void playByStartPointToNext(int startPosition, int nextPosition) {
         if (startPosition < 0 || nextPosition < 0 || nextPosition == startPosition) {
-            startPosition = nextPosition = 0;
+            nextPosition = 0;
+            startPosition = 0;
         }
-        final View ViewStrat = mImageViews.get(startPosition);
-        final View ViewNext = mImageViews.get(nextPosition);
-        ViewNext.setBackgroundResource(R.drawable.shape_bg_indicator_point_select);
+        View ViewStrat = (View) this.mImageViews.get(startPosition);
+        ((View) this.mImageViews.get(nextPosition)).setBackgroundResource(R.drawable.shape_bg_indicator_point_select);
         ViewStrat.setBackgroundResource(R.drawable.shape_bg_indicator_point_nomal);
     }
-
 }

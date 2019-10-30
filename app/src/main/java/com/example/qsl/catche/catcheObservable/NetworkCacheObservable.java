@@ -2,9 +2,7 @@ package com.example.qsl.catche.catcheObservable;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import com.example.qsl.bean.ImageBean;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;

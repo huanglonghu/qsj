@@ -46,13 +46,15 @@
             android:layout_marginTop="254pt"
             android:layout_marginRight="30pt"
             android:background="@drawable/shape13"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="30pt"
+            android:paddingRight="30pt">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40pt"
-                android:text="手机快捷登录"
+                android:text="完善个人资料"
                 android:textColor="#000"
                 android:textSize="36pt" />
 
@@ -83,33 +85,6 @@
 
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="90pt"
-                android:layout_marginTop="30pt"
-                android:background="@drawable/shape18"
-                android:gravity="center_vertical"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:padding="5dp"
-                    android:src="@drawable/nickname" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="请输入昵称"
-                    android:text="@={registerBody.nickName}"
-                    android:textColorHint="@color/t3"
-                    android:textSize="27pt" />
-
-
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="90pt"
@@ -129,7 +104,7 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:hint="请设置登录密码"
-                    android:inputType="number"
+                    android:inputType="textPassword"
                     android:text="@={registerBody.password}"
                     android:textColorHint="@color/t3"
                     android:textSize="27pt" />

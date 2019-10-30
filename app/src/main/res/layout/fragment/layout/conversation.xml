@@ -14,11 +14,11 @@
             name="tip"
             type="String" />
 
-        <variable
-            name="count"
-            type="int" />
-
         <import type="android.view.View" />
+
+        <variable
+            name="isConversationExit"
+            type="boolean" />
 
 
     </data>
@@ -35,7 +35,6 @@
 
             <include
                 layout="@layout/toolbar2"
-                bind:count="@{count}"
                 bind:presenter="@{presenter}"
                 bind:title="@{@string/converstaionRecord}" />
 
@@ -48,7 +47,7 @@
 
             <include
                 layout="@layout/empty_layout"
-                android:visibility="@{count==0?View.VISIBLE:View.GONE}"
+                android:visibility="@{!isConversationExit?View.VISIBLE:View.GONE}"
                 bind:tip="@{tip}" />
 
             <ListView
@@ -61,7 +60,7 @@
                 android:background="@drawable/shape3"
                 android:paddingLeft="35pt"
                 android:paddingRight="35pt"
-                android:visibility="@{count!=0?View.VISIBLE:View.GONE}" />
+                android:visibility="@{isConversationExit?View.VISIBLE:View.GONE}" />
 
         </FrameLayout>
 

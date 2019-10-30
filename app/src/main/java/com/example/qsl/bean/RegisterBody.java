@@ -1,24 +1,14 @@
 package com.example.qsl.bean;
 
 public class RegisterBody {
-
-
-    /**
-     * userName : string
-     * mobile : string
-     * code : string
-     * password : string
-     * nickName : string
-     */
-
-    private String userName;
-    private String mobile;
     private String code;
-    private String password;
+    private String mobile;
     private String nickName;
+    private String password;
+    private String userName;
 
     public String getUserName() {
-        return userName;
+        return this.userName;
     }
 
     public void setUserName(String userName) {
@@ -26,7 +16,7 @@ public class RegisterBody {
     }
 
     public String getMobile() {
-        return mobile;
+        return this.mobile;
     }
 
     public void setMobile(String mobile) {
@@ -34,7 +24,7 @@ public class RegisterBody {
     }
 
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     public void setCode(String code) {
@@ -42,7 +32,7 @@ public class RegisterBody {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
@@ -50,7 +40,7 @@ public class RegisterBody {
     }
 
     public String getNickName() {
-        return nickName;
+        return this.nickName;
     }
 
     public void setNickName(String nickName) {

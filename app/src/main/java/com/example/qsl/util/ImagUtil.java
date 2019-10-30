@@ -13,8 +13,10 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
+
 import com.example.qsl.base.QSLApplication;
 import com.example.qsl.constant.Constants;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,11 +24,14 @@ import java.io.IOException;
 
 public class ImagUtil {
 
-
     public static String handleUrl(String path) {
         if (!TextUtils.isEmpty(path)) {
             if (!path.contains("http")) {
-                path = Constants.baseUrl + "/" + path;
+                if (path.substring(0, 1).equals("/")) {
+                    path = Constants.baseUrl + path;
+                } else {
+                    path = Constants.baseUrl + "/" + path;
+                }
             }
             return path;
         }
@@ -35,7 +40,7 @@ public class ImagUtil {
 
 
     public static Drawable circle(Context context, Bitmap bitmap) {
-        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), bitmap);
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(QSLApplication.getApplication().getResources(), bitmap);
         roundedBitmapDrawable.setCornerRadius(100);
         roundedBitmapDrawable.setCircular(true);
         return roundedBitmapDrawable;

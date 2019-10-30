@@ -2,13 +2,13 @@ package com.example.qsl.bean;
 
 import java.util.List;
 
-public class ContactsResponse {
+public class BankCardMsg {
 
 
     /**
      * code : 0
      * msg : success
-     * data : {"items":[{"mobile":"18388888888","avatar":"/images/face.jpg","nickName":"北北","id":1}]}
+     * data : {"items":[{"bank":"光大银行","subBranch":"广州天河北路","name":"大猫","card":"888 8888 8888 8888","id":1}]}
      */
 
     private int code;
@@ -52,39 +52,49 @@ public class ContactsResponse {
 
         public static class ItemsBean {
             /**
-             * mobile : 18388888888
-             * avatar : /images/face.jpg
-             * nickName : 北北
+             * bank : 光大银行
+             * subBranch : 广州天河北路
+             * name : 大猫
+             * card : 888 8888 8888 8888
              * id : 1
              */
 
-            private String mobile;
-            private String avatar;
-            private String nickName;
+            private String bank;
+            private String subBranch;
+            private String name;
+            private String card;
             private int id;
 
-            public String getMobile() {
-                return mobile;
+            public String getBank() {
+                return bank;
             }
 
-            public void setMobile(String mobile) {
-                this.mobile = mobile;
+            public void setBank(String bank) {
+                this.bank = bank;
             }
 
-            public String getAvatar() {
-                return avatar;
+            public String getSubBranch() {
+                return subBranch;
             }
 
-            public void setAvatar(String avatar) {
-                this.avatar = avatar;
+            public void setSubBranch(String subBranch) {
+                this.subBranch = subBranch;
             }
 
-            public String getNickName() {
-                return nickName;
+            public String getName() {
+                return name;
             }
 
-            public void setNickName(String nickName) {
-                this.nickName = nickName;
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getCard() {
+                return card;
+            }
+
+            public void setCard(String card) {
+                this.card = card;
             }
 
             public int getId() {

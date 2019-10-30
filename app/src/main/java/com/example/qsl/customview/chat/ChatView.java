@@ -10,6 +10,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
 import com.example.qsl.R;
 
+
 @SuppressLint("AppCompatCustomView")
 public class ChatView extends ChatLayout {
     /**

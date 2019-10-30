@@ -45,7 +45,9 @@
             android:layout_marginTop="254pt"
             android:layout_marginRight="30pt"
             android:background="@drawable/shape13"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="30pt"
+            android:paddingRight="30pt">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -105,7 +107,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="请输入密码"
-                    android:inputType="number"
+                    android:inputType="textPassword"
                     android:text="@={loginBody.password}"
                     android:textColorHint="@color/t3"
                     android:textSize="27pt" />
@@ -124,11 +126,12 @@
                 android:textSize="30pt" />
 
             <TextView
-                android:id="@+id/accountLogin"
+                android:id="@+id/mobileLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30pt"
+                android:padding="10pt"
                 android:text="手机快捷登录"
                 android:textColor="#000"
                 android:textSize="25pt" />
